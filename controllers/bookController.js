@@ -30,25 +30,23 @@ module.exports = {
         const id = req.params.id
         modelBooks.getABook(id)
             .then(result => {
-                // Checking if book does not exist
                 if (result[0] === undefined) {
                     return res.status(400).send({
                         status: 400,
                         id,
-                        message: 'The book does not exist'
+                        message: 'El libro no existe.'
                     })
                 }
                 res.json({
                     status: 200,
                     id: id,
-                    message: 'Book successfully retrieved',
+                    message: 'Libro encontrado.',
                     result
                 })
             })
             .catch(err => console.log(err))
     },
     createBook: (req, res) => {
-        // const [year, month, day] = req.body.released_at
         const data = {
             title: req.body.title,
             desc: req.body.desc,
@@ -57,11 +55,10 @@ module.exports = {
             genre: req.body.genre,
             available: parseInt(req.body.available)
         }
-
         modelBooks.createBook(data)
             .then(result => res.send({
                 status: 200,
-                message: 'Book has successfully added!',
+                message: 'Libro agregado',
                 data
             }))
             .catch(err => console.log(err))
@@ -75,14 +72,13 @@ module.exports = {
         }
 
         const id = req.params.id
-
         modelBooks.getABook(id)
             .then(result => {
                 if (result.length !== 0) {
                     return modelBooks.updateBook(data, id)
                         .then(result => res.json({
                             status: 200,
-                            message: 'Book has successfully updated',
+                            message: 'Libro actualizado',
                             id,
                             data
                         }))
@@ -91,7 +87,7 @@ module.exports = {
                     return res.status(400).send({
                         status: 400,
                         id,
-                        message: 'Book does not exist'
+                        message: 'El libro no existe'
                     })
                 }
             })
@@ -105,14 +101,14 @@ module.exports = {
                         .then(result => res.send({
                             status: 200,
                             id: id,
-                            message: 'Book has been deleted',
+                            message: 'El libro ha sido eliminado',
                         }))
                         .catch(err => console.log(err))
                 } else {
                     return res.status(400).send({
                         status: 400,
                         id,
-                        message: 'Book does not exist'
+                        message: 'El libro no existe'
                     })
                 }
 
@@ -130,7 +126,7 @@ module.exports = {
         modelBooks.getAvailableBooks(beginData, numPerPage, sort, order, querySearch)
             .then(result => res.json({
                 status: 200,
-                message: 'This is the lists of available books',
+                message: 'Libros disponibles',
                 currentPage: activePage,
                 limit: numPerPage,
                 sort,
@@ -161,7 +157,7 @@ module.exports = {
                                 .then(result => res.send({
                                     status: 200,
                                     id,
-                                    message: 'Book has successfully rented'
+                                    message: 'Libro prestado'
                                 }))
                                 .catch(err => console.log(err))
                         })
@@ -169,7 +165,7 @@ module.exports = {
                     return res.status(400).send({
                         status: 400,
                         id,
-                        message: 'The book has already borrowed by someone else'
+                        message: 'El libro ha sido prestado'
                     })
                 }
             })
@@ -179,7 +175,7 @@ module.exports = {
             .then(result => res.json({
                 status: 200,
                 totalData: result.length,
-                message: 'This is the lists of unavailable books',
+                message: 'Libros no disponibles',
                 result
             }))
             .catch(err => console.log(err))
@@ -224,7 +220,7 @@ module.exports = {
             .then(result => res.json({
                 status: 200,
                 totalData: result.length,
-                message: 'This is the lists of genres',
+                message: 'Lista de generos',
                 result
             }))
             .catch(err => console.log(err))
@@ -239,7 +235,7 @@ module.exports = {
                     return modelBooks.insertGenre(data)
                         .then(result => res.json({
                             status: 200,
-                            message: 'Genre has successfully added',
+                            message: 'Genero agregado',
                             data
                         }))
                         .catch(err => console.log(err))
@@ -265,7 +261,7 @@ module.exports = {
                     return modelBooks.updateGenre(data, id)
                         .then(result => res.json({
                             status: 200,
-                            message: 'Genre has successfully updated',
+                            message: 'Genero actualizado',
                             id,
                             data
                         }))
@@ -275,7 +271,7 @@ module.exports = {
                         status: 400,
                         id,
                         genre,
-                        message: 'Genre does not exist'
+                        message: 'Genero no existe'
                     })
                 }
             })
@@ -309,13 +305,13 @@ module.exports = {
 
                     res.send({
                         status: 200,
-                        message: 'User History Successfully Received!',
+                        message: 'Historia del usuario accedida',
                         result
                     })
                 } else {
                     res.send({
                         status: 400,
-                        message: 'User History is not exist'
+                        message: 'No exist la historia'
                     })
                 }
             })
